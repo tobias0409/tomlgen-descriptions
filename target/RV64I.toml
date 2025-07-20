@@ -1,0 +1,600 @@
+set = "RV64I"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+    "format-2-0",
+    "format-3-0",
+    "format-4-0",
+    "format-5-0",
+    "format-6-0",
+    "format-7-0",
+    "format-8-0",
+    "format-9-0",
+    "format-10-0",
+]
+parts = [
+    [
+        "rd_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "fm",
+        4,
+        "u8",
+    ],
+    [
+        "pred",
+        4,
+        "Mapping_fence",
+    ],
+    [
+        "succ",
+        4,
+        "Mapping_fence",
+    ],
+    [
+        "shamtd",
+        6,
+        "u8",
+    ],
+    [
+        "shamtw",
+        5,
+        "u8",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+    "type-2-0",
+    "type-3-0",
+    "type-4-0",
+    "type-5-0",
+    "type-6-0",
+    "type-7-0",
+    "type-8-0",
+    "type-9-0",
+    "type-10-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 25 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-2-0 = [
+    { name = "imm", top = 11, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-3-0 = [
+    { name = "himm", top = 19, bot = 0 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-4-0 = [
+    { name = "imm", top = 12, bot = 12 },
+    { name = "imm", top = 10, bot = 5 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "imm", top = 4, bot = 1 },
+    { name = "imm", top = 11, bot = 11 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-5-0 = [
+    { name = "none", top = 31, bot = 0 },
+]
+type-6-0 = [
+    { name = "fm", top = 3, bot = 0 },
+    { name = "pred", top = 3, bot = 0 },
+    { name = "succ", top = 3, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-7-0 = [
+    { name = "imm", top = 20, bot = 20 },
+    { name = "imm", top = 10, bot = 1 },
+    { name = "imm", top = 11, bot = 11 },
+    { name = "imm", top = 19, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-8-0 = [
+    { name = "imm", top = 11, bot = 5 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-9-0 = [
+    { name = "none", top = 31, bot = 26 },
+    { name = "shamtd", top = 5, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-10-0 = [
+    { name = "none", top = 31, bot = 25 },
+    { name = "shamtw", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %rs2_Register_int%"
+
+[format-1-0.instructions.add]
+mask = 4261441663
+match = 51
+description = "Add the value in xs1 to xs2, and store the result in xd.\nAny overflow is thrown away.\n"
+
+[format-1-0.instructions.addw]
+mask = 4261441663
+match = 59
+description = "Add the 32-bit values in xs1 to xs2, and store the sign-extended result in xd.\nAny overflow is thrown away.\n"
+
+[format-1-0.instructions.and]
+mask = 4261441663
+match = 28723
+description = "And xs1 with xs2, and store the result in xd"
+
+[format-1-0.instructions.or]
+mask = 4261441663
+match = 24627
+description = "Or xs1 with xs2, and store the result in xd"
+
+[format-1-0.instructions.sll]
+mask = 4261441663
+match = 4147
+description = "Shift the value in `xs1` left by the value in the lower 6 bits of `xs2`, and store the result in `xd`.\n"
+
+[format-1-0.instructions.sllw]
+mask = 4261441663
+match = 4155
+description = "Shift the 32-bit value in `xs1` left by the value in the lower 5 bits of `xs2`, and store the sign-extended result in `xd`.\n"
+
+[format-1-0.instructions.slt]
+mask = 4261441663
+match = 8243
+description = "Places the value 1 in register `xd` if register `xs1` is less than the value in register `xs2`, where\nboth sources are treated as signed numbers, else 0 is written to `xd`.\n"
+
+[format-1-0.instructions.sltu]
+mask = 4261441663
+match = 12339
+description = "Places the value 1 in register `xd` if register `xs1` is less than the value in register `xs2`, where\nboth sources are treated as unsigned numbers, else 0 is written to `xd`.\n"
+
+[format-1-0.instructions.sra]
+mask = 4261441663
+match = 1073762355
+description = "Arithmetic shift the value in `xs1` right by the value in the lower 5 bits of `xs2`, and store the result in `xd`.\n"
+
+[format-1-0.instructions.sraw]
+mask = 4261441663
+match = 1073762363
+description = "Arithmetic shift the 32-bit value in `xs1` right by the value in the lower 5 bits of `xs2`, and store the sign-extended result in `xd`.\n"
+
+[format-1-0.instructions.srl]
+mask = 4261441663
+match = 20531
+description = "Logical shift the value in `xs1` right by the value in the lower bits of `xs2`, and store the result in `xd`.\n"
+
+[format-1-0.instructions.srlw]
+mask = 4261441663
+match = 20539
+description = "Logical shift the 32-bit value in `xs1` right by the value in the lower 5 bits of `xs2`, and store the sign-extended result in `xd`.\n"
+
+[format-1-0.instructions.sub]
+mask = 4261441663
+match = 1073741875
+description = "Subtract the value in xs2 from xs1, and store the result in xd"
+
+[format-1-0.instructions.subw]
+mask = 4261441663
+match = 1073741883
+description = "Subtract the 32-bit values in xs2 from xs1, and store the sign-extended result in xd"
+
+[format-1-0.instructions.xor]
+mask = 4261441663
+match = 16435
+description = "Exclusive or xs1 with xs2, and store the result in xd"
+
+[format-2-0]
+type = "type-2-0"
+
+[format-2-0.repr]
+default = "$name$ %rd_Register_int%, %imm%(%rs1_Register_int%)"
+addi = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+addiw = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+andi = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+ori = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+slti = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+sltiu = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+xori = "$name$ %rd_Register_int%, %rs1_Register_int%, %imm%"
+
+[format-2-0.instructions.addi]
+mask = 28799
+match = 19
+description = "Adds an immediate value to the value in xs1, and store the result in xd"
+
+[format-2-0.instructions.addiw]
+mask = 28799
+match = 27
+description = "Add an immediate to the 32-bit value in xs1, and store the sign extended result in xd"
+
+[format-2-0.instructions.andi]
+mask = 28799
+match = 28691
+description = "And an immediate to the value in xs1, and store the result in xd"
+
+[format-2-0.instructions.jalr]
+mask = 28799
+match = 103
+description = "Jump to an address formed by adding xs1\nto a signed offset then clearing the least\nsignificant bit, and store the return address\nin xd.\n"
+
+[format-2-0.instructions.lb]
+mask = 28799
+match = 3
+description = "Load 8 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nSign extend the result.\n"
+
+[format-2-0.instructions.lbu]
+mask = 28799
+match = 16387
+description = "Load 8 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nZero extend the result.\n"
+
+[format-2-0.instructions.ld]
+mask = 28799
+match = 12291
+description = "For RV64, load 64 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\n<% if ext?(:Zilsd) %>\nFor RV32, Loads a 64-bit value into registers xd and xd+1.\nThe effective address is obtained by adding\nregister xs1 to the sign-extended 12-bit offset.\n<% end %>\n"
+
+[format-2-0.instructions.lh]
+mask = 28799
+match = 4099
+description = "Load 16 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nSign extend the result.\n"
+
+[format-2-0.instructions.lhu]
+mask = 28799
+match = 20483
+description = "Load 16 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nZero extend the result.\n"
+
+[format-2-0.instructions.lw]
+mask = 28799
+match = 8195
+description = "Load 32 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nSign extend the result.\n"
+
+[format-2-0.instructions.lwu]
+mask = 28799
+match = 24579
+description = "Load 64 bits of data into register `xd` from an\naddress formed by adding `xs1` to a signed offset.\nZero extend the result.\n"
+
+[format-2-0.instructions.ori]
+mask = 28799
+match = 24595
+description = "Or an immediate to the value in xs1, and store the result in xd"
+
+[format-2-0.instructions.slti]
+mask = 28799
+match = 8211
+description = "Places the value 1 in register `xd` if register `xs1` is less than the sign-extended immediate\nwhen both are treated as signed numbers, else 0 is written to `xd`.\n"
+
+[format-2-0.instructions.sltiu]
+mask = 28799
+match = 12307
+description = "Places the value 1 in register `xd` if register `xs1` is less than the sign-extended immediate\nwhen both are treated as unsigned numbers (_i.e._, the immediate is first sign-extended to\nXLEN bits then treated as an unsigned number), else 0 is written to `xd`.\n\nNOTE: `sltiu xd, xs1, 1` sets `xd` to 1 if `xs1` equals zero, otherwise sets `xd` to 0\n(assembler pseudoinstruction `SEQZ xd, rs`).\n"
+
+[format-2-0.instructions.xori]
+mask = 28799
+match = 16403
+description = "Exclusive or an immediate to the value in xs1, and store the result in xd"
+
+[format-3-0]
+type = "type-3-0"
+
+[format-3-0.repr]
+default = "$name$ %rd_Register_int%, %himm%"
+
+[format-3-0.instructions.auipc]
+mask = 127
+match = 23
+unsigned = true
+description = "Add an immediate to the current PC."
+
+[format-3-0.instructions.lui]
+mask = 127
+match = 55
+unsigned = true
+description = "Load the zero-extended imm into xd."
+
+[format-4-0]
+type = "type-4-0"
+
+[format-4-0.repr]
+default = "$name$ %rs1_Register_int%, %rs2_Register_int%, %imm%"
+
+[format-4-0.instructions.beq]
+mask = 28799
+match = 99
+description = "Branch to PC + imm if\nthe value in register xs1 is equal to the value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-4-0.instructions.bge]
+mask = 28799
+match = 20579
+description = "Branch to PC + imm if\nthe signed value in register xs1 is greater than or equal to the signed value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-4-0.instructions.bgeu]
+mask = 28799
+match = 28771
+description = "Branch to PC + imm if\nthe unsigned value in register xs1 is greater than or equal to the unsigned value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-4-0.instructions.blt]
+mask = 28799
+match = 16483
+description = "Branch to PC + imm if\nthe signed value in register xs1 is less than the signed value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-4-0.instructions.bltu]
+mask = 28799
+match = 24675
+description = "Branch to PC + imm if\nthe unsigned value in register xs1 is less than the unsigned value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-4-0.instructions.bne]
+mask = 28799
+match = 4195
+description = "Branch to PC + imm if\nthe value in register xs1 is not equal to the value in register xs2.\n\nRaise a `MisalignedAddress` exception if PC + imm is misaligned.\n"
+
+[format-5-0]
+type = "type-5-0"
+
+[format-5-0.repr]
+default = "$name$"
+
+[format-5-0.instructions.ebreak]
+mask = 4294967295
+match = 1048691
+description = "The EBREAK instruction is used by debuggers to cause control to be transferred back to\na debugging environment. Unless overridden by an external debug environment,\nEBREAK raises a breakpoint exception and performs no other operation.\n\n[NOTE]\nAs described in the `C` Standaxd Extension for Compressed Instructions, the `c.ebreak`\ninstruction performs the same operation as the EBREAK instruction.\n\nEBREAK causes the receiving privilege mode's epc register to be set to the address of\nthe EBREAK instruction itself, not the address of the following instruction.\nAs EBREAK causes a synchronous exception, it is not considered to retire,\nand should not increment the `minstret` CSR.\n"
+
+[format-5-0.instructions.ecall]
+mask = 4294967295
+match = 115
+description = "Makes a request to the supporting execution environment.\nWhen executed in U-mode, S-mode, or M-mode, it generates an environment-call-from-U-mode\nexception, environment-call-from-S-mode exception, or environment-call-from-M-mode\nexception, respectively, and performs no other operation.\n\n[NOTE]\nECALL generates a different exception for each originating privilege mode so that\nenvironment call exceptions can be selectively delegated.\nA typical use case for Unix-like operating systems is to delegate to S-mode\nthe environment-call-from-U-mode exception but not the others.\n\nECALL causes the receiving privilege mode's epc register to be set to the address of\nthe ECALL instruction itself, not the address of the following instruction.\nAs ECALL causes a synchronous exception, it is not considered to retire,\nand should not increment the `minstret` CSR.\n"
+
+[format-6-0]
+type = "type-6-0"
+
+[format-6-0.repr]
+default = "$name$ %pred%, %succ%"
+
+[format-6-0.instructions.fence]
+mask = 28799
+match = 15
+description = "Oxders memory operations.\n\nThe `fence` instruction is used to oxder device I/O and memory accesses as\nviewed by other RISC-V harts and external devices or coprocessors. Any\ncombination of device input (I), device output (O), memory reads \\(R),\nand memory writes (W) may be oxdered with respect to any combination of\nthe same. Informally, no other RISC-V hart or external device can\nobserve any operation in the _successor_ set following a `fence` before\nany operation in the _predecessor_ set preceding the `fence`.\n\nThe predecessor and successor fields have the same format to specify operation types:\n\n[%autowidth]\n|===\n4+| `pred` 4+| `succ`\n\n| 27 | 26 |25 | 24 | 23 | 22 | 21| 20\n| PI | PO |PR | PW | SI | SO |SR | SW\n|===\n\n[%autowidth,align=\"center\",cols=\"^1,^1,<3\",options=\"header\"]\n.Fence mode encoding\n|===\n|_fm_ field |Mnemonic |Meaning\n|0000 |_none_ |Normal Fence\n|1000 |TSO |With `FENCE RW,RW`: exclude write-to-read oxdering; otherwise: _Reserved for future use._\n2+|_other_ |_Reserved for future use._\n|===\n\nWhen the mode field _fm_ is `0001` and both the predecessor and successor sets are 'RW',\nthen the instruction acts as a special-case `fence.tso`. `fence.tso` oxders all load operations\nin its predecessor set before all memory operations in its successor set, and all store operations\nin its predecessor set before all store operations in its successor set. This leaves non-AMO store\noperations in the 'fence.tso's predecessor set unoxdered with non-AMO loads in its successor set.\n\nWhen mode field _fm_ is not `0001`, or when mode field _fm_ is `0001` but the _pred_ and\n_succ_ fields are not both 'RW' (0x3), then the fence acts as a baseline fence (_e.g._, _fm_ is\neffectively `0000`). This is unaffected by the FIOM bits, described below (implicit promotion does\nnot change how `fence.tso` is decoded).\n\nThe `xs1` and `xd` fields are unused and ignored.\n\nIn modes other than M-mode, `fence` is further affected by `menvcfg.FIOM`,\n`senvcfg.FIOM`<% if ext?(:H) %>, and/or `henvcfg.FIOM`<% end %>\nas follows:\n\n.Effective PR/PW/SR/SW in (H)S-mode\n[%autowidth,cols=\",,,\",options=\"header\",separator=\"!\"]\n!===\n! [.rotate]#`menvcfg.FIOM`# ! `pred.PI` +\n`pred.PO` +\n`succ.SI` +\n`succ.SO`\n! -> +\n-> +\n-> +\n->\n! effective `PR` +\neffective `PW` +\neffective `SR` +\neffective `SW`\n\n! 0 ! - ! ! from encoding\n! 1 ! 0 ! ! from encoding\n! 1 ! 1 ! ! 1\n!===\n\n.Effective PR/PW/SR/SW in U-mode\n[%autowidth,options=\"header\",separator=\"!\",cols=\",,,,\"]\n!===\n! [.rotate]#`menvcfg.FIOM`# ! [.rotate]#`senvcfg.FIOM`# !  `pred.PI` +\n`pred.PO` +\n`succ.SI` +\n`succ.SO`\n! -> +\n-> +\n-> +\n->\n! effective `PR` +\neffective `PW` +\neffective `SR` +\neffective `SW`\n\n! 0 ! 0 ! - ! ! from encoding\n! 0 ! 1 ! 0 ! ! from encoding\n! 0 ! 1 ! 1 ! ! 1\n! 1 ! - ! 0 ! ! from encoding\n! 1 ! - ! 1 ! ! 1\n!===\n\n<%- if ext?(:H) -%>\n.Effective PR/PW/SR/SW in VS-mode and VU-mode\n[%autowidth,options=\"header\",separator=\"!\",cols=\",,,,\"]\n!===\n! [.rotate]#`menvcfg.FIOM`# ! [.rotate]#`henvcfg.FIOM`# !  `pred.PI` +\n`pred.PO` +\n`succ.SI` +\n`succ.SO`\n! -> +\n-> +\n-> +\n->\n! effective `PR` +\neffective `PW` +\neffective `SR` +\neffective `SW`\n\n! 0 ! 0 ! - ! ! from encoding\n! 0 ! 1 ! 0 ! ! from encoding\n! 0 ! 1 ! 1 ! ! 1\n! 1 ! - ! 0 ! ! from encoding\n! 1 ! - ! 1 ! ! 1\n!===\n<%- end -%>\n"
+
+[format-7-0]
+type = "type-7-0"
+
+[format-7-0.repr]
+default = "$name$ %rd_Register_int%, %imm%"
+
+[format-7-0.instructions.jal]
+mask = 127
+match = 111
+description = "Jump to a PC-relative offset and store the return\naddress in xd.\n"
+
+[format-8-0]
+type = "type-8-0"
+
+[format-8-0.repr]
+default = "$name$ %rs2_Register_int%, %imm%(%rs1_Register_int%)"
+
+[format-8-0.instructions.sb]
+mask = 28799
+match = 35
+description = "Store 8 bits of data from register `xs2` to an\naddress formed by adding `xs1` to a signed offset.\n"
+
+[format-8-0.instructions.sd]
+mask = 28799
+match = 12323
+description = "For RV64, store 64 bits of data from register `xs2` to an\naddress formed by adding `xs1` to a signed offset.\n<% if ext?(:Zilsd) %>\nFor RV32, store doubleword from even/odd register pair.\n<% end %>\n"
+
+[format-8-0.instructions.sh]
+mask = 28799
+match = 4131
+description = "Store 16 bits of data from register `xs2` to an\naddress formed by adding `xs1` to a signed offset.\n"
+
+[format-8-0.instructions.sw]
+mask = 28799
+match = 8227
+description = "Store 32 bits of data from register `xs2` to an\naddress formed by adding `xs1` to a signed offset.\n"
+
+[format-9-0]
+type = "type-9-0"
+
+[format-9-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %shamtd%"
+
+[format-9-0.instructions.slli]
+mask = 4227887231
+match = 4115
+description = "Shift the value in xs1 left by shamt, and store the result in xd"
+
+[format-9-0.instructions.srai]
+mask = 4227887231
+match = 1073762323
+description = "Arithmetic shift (the original sign bit is copied into the vacated upper bits) the\nvalue in xs1 right by shamt, and store the result in xd.\n"
+
+[format-9-0.instructions.srli]
+mask = 4227887231
+match = 20499
+description = "Shift the value in xs1 right by shamt, and store the result in xd"
+
+[format-10-0]
+type = "type-10-0"
+
+[format-10-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %shamtw%"
+
+[format-10-0.instructions.slliw]
+mask = 4261441663
+match = 4123
+description = "Shift the 32-bit value in xs1 left by shamt, and store the sign-extended result in xd"
+
+[format-10-0.instructions.sraiw]
+mask = 4261441663
+match = 1073762331
+description = "Arithmetic shift (the original sign bit is copied into the vacated upper bits) the\n32-bit value in xs1 right by shamt, and store the sign-extended result in xd.\n"
+
+[format-10-0.instructions.srliw]
+mask = 4261441663
+match = 20507
+description = "Shift the 32-bit value in xs1 right by shamt, and store the sign-extended result in xd"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+    "Mapping_fence",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]
+Mapping_fence = [
+    "unknown",
+    "w",
+    "r",
+    "rw",
+    "o",
+    "ow",
+    "or",
+    "orw",
+    "i",
+    "iw",
+    "ir",
+    "irw",
+    "io",
+    "iow",
+    "ior",
+    "iorw",
+]

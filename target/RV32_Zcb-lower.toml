@@ -1,0 +1,247 @@
+set = "RV32Zcb"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+    "format-2-0",
+    "format-3-0",
+    "format-4-0",
+    "format-5-0",
+    "format-6-0",
+]
+parts = [
+    [
+        "rd_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rd_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rs1_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rs1_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rd_rs1_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rd_rs1_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rs2_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rs2_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+    "type-2-0",
+    "type-3-0",
+    "type-4-0",
+    "type-5-0",
+    "type-6-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "himm", top = 0, bot = 0 },
+    { name = "himm", top = 1, bot = 1 },
+    { name = "rd_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-2-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 6, bot = 6 },
+    { name = "himm", top = 1, bot = 1 },
+    { name = "rd_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-3-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rd_rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 6, bot = 5 },
+    { name = "rs2_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-4-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rd_rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-5-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "himm", top = 0, bot = 0 },
+    { name = "himm", top = 1, bot = 1 },
+    { name = "rs2_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-6-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 6, bot = 6 },
+    { name = "himm", top = 1, bot = 1 },
+    { name = "rs2_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$ %rd_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-1-0.instructions."c.lbu"]
+mask = 64515
+match = 32768
+unsigned = true
+description = "Loads a 8-bit value from memory into register xd.\nIt computes an effective address by adding the zero-extended offset, to the base address in register xs1.\nIt expands to `lbu` `xd, offset(xs1)`.\n"
+
+[format-2-0]
+type = "type-2-0"
+
+[format-2-0.repr]
+default = "$name$ %rd_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-2-0.instructions."c.lh"]
+mask = 64579
+match = 33856
+unsigned = true
+description = "Loads a 16-bit value from memory into register xd.\nIt computes an effective address by adding the zero-extended offset, to the base address in register xs1.\nIt expands to `lh` `xd, offset(xs1)`.\n"
+
+[format-2-0.instructions."c.lhu"]
+mask = 64579
+match = 33792
+unsigned = true
+description = "Loads a 16-bit value from memory into register xd.\nIt computes an effective address by adding the zero-extended offset, to the base address in register xs1.\nIt expands to `lhu` `xd, offset(xs1)`.\n"
+
+[format-3-0]
+type = "type-3-0"
+
+[format-3-0.repr]
+default = "$name$ %rd_rs1_p_Register_int_c%, %rs2_p_Register_int_c%"
+
+[format-3-0.instructions."c.mul"]
+mask = 64611
+match = 40001
+description = "Multiplies XLEN bits of the source operands from rsd' and xs2' and writes the lowest XLEN bits of the result to rsd'.\n"
+
+[format-4-0]
+type = "type-4-0"
+
+[format-4-0.repr]
+default = "$name$ %rd_rs1_p_Register_int_c%"
+
+[format-4-0.instructions."c.not"]
+mask = 64639
+match = 40053
+description = "Takes a single source/destination operand.\nThis instruction takes the one's complement of xd'/xs1' and writes the result to the same register.\n"
+
+[format-4-0.instructions."c.sext.b"]
+mask = 64639
+match = 40037
+description = "Takes a single source/destination operand.\nThis instruction sign-extends the least-significant byte of the source to XLEN by copying\nthe most-significant bit in the byte (i.e., bit 7) to all of the more-significant bits.\n"
+
+[format-4-0.instructions."c.sext.h"]
+mask = 64639
+match = 40045
+description = "Takes a single source/destination operand.\nThis instruction sign-extends the least-significant halfword of the source to XLEN by copying\nthe most-significant bit in the halfword (i.e., bit 15) to all of the more-significant bits.\n"
+
+[format-4-0.instructions."c.zext.b"]
+mask = 64639
+match = 40033
+description = "Takes a single source/destination operand.\nThis instruction zero-extends the least-significant byte of the source to XLEN by inserting\n0's into all of the bits more significant than 7.\n"
+
+[format-4-0.instructions."c.zext.h"]
+mask = 64639
+match = 40041
+description = "Takes a single source/destination operand.\nThis instruction zero-extends the least-significant halfword of the source to XLEN by inserting\n0's into all of the bits more significant than 15.\n"
+
+[format-5-0]
+type = "type-5-0"
+
+[format-5-0.repr]
+default = "$name$ %rs2_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-5-0.instructions."c.sb"]
+mask = 64515
+match = 34816
+unsigned = true
+description = "Stores a 8-bit value from register xs2 into memory.\nIt computes an effective address by adding the zero-extended offset, to the base address in register xs1.\nIt expands to `sb` `xs2, offset(xs1)`.\n"
+
+[format-6-0]
+type = "type-6-0"
+
+[format-6-0.repr]
+default = "$name$ %rs2_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-6-0.instructions."c.sh"]
+mask = 64579
+match = 35840
+unsigned = true
+description = "Stores a 16-bit value from register xs2 into memory.\nIt computes an effective address by adding the zero-extended offset, to the base address in register xs1.\nIt expands to `sh` `xs2, offset(xs1)`.\n"
+
+[mappings]
+names = [
+    "Register_int_c",
+    "Register_float_c",
+]
+number = 32
+Register_int_c = [
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+]
+Register_float_c = [
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+]

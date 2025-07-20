@@ -1,0 +1,328 @@
+set = "RV64Zbb"
+width = 32
+
+[formats]
+names = [
+    "format_1-0",
+    "format_2-0",
+    "format_3-0",
+    "format_4-0",
+]
+parts = [
+    [
+        "rd_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "shamtd",
+        6,
+        "u8",
+        "hex",
+    ],
+    [
+        "shamtw",
+        5,
+        "u8",
+        "hex",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type_1-0",
+    "type_2-0",
+    "type_3-0",
+    "type_4-0",
+]
+type_1-0 = [
+    { name = "none", top = 31, bot = 25 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type_2-0 = [
+    { name = "none", top = 31, bot = 20 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type_3-0 = [
+    { name = "none", top = 31, bot = 26 },
+    { name = "shamtd", top = 5, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type_4-0 = [
+    { name = "none", top = 31, bot = 25 },
+    { name = "shamtw", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+
+[format_1-0]
+type = "type_1-0"
+
+[format_1-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %rs2_Register_int%"
+
+[format_1-0.instructions.andn]
+mask = 4261441663
+match = 1073770547
+description = "Performs the bitwise logical AND operation between `xs1` and the\nbitwise inversion of `xs2`.\n"
+
+[format_1-0.instructions.max]
+mask = 4261441663
+match = 167796787
+description = "Returns the larger of two signed integers.\n\n.Software Hint\n[NOTE]\nCalculating the absolute value of a signed integer can be performed using the\nfollowing sequence: `neg rD,rS` followed by `max rD,rS,rD. When using this\ncommon sequence, it is suggested that they are scheduled with no intervening\ninstructions so that implementations that are so optimized can fuse them\ntogether.\n"
+
+[format_1-0.instructions.maxu]
+mask = 4261441663
+match = 167800883
+description = "Returns the larger of two unsigned integers.\n"
+
+[format_1-0.instructions.min]
+mask = 4261441663
+match = 167788595
+description = "Returns the smaller of two signed integers.\n"
+
+[format_1-0.instructions.minu]
+mask = 4261441663
+match = 167792691
+description = "Returns the smaller of two unsigned integers.\n"
+
+[format_1-0.instructions.orn]
+mask = 4261441663
+match = 1073766451
+description = "Performs the bitwise logical OR operation between xs1 and the bitwise inversion of xs2.\n"
+
+[format_1-0.instructions.rol]
+mask = 4261441663
+match = 1610616883
+description = "Performs a rotate left of xs1 by the amount in least-significant `log2(XLEN)` bits of xs2.\n"
+
+[format_1-0.instructions.rolw]
+mask = 4261441663
+match = 1610616891
+description = "Performs a rotate left of the least-significant word of xs1 by the amount in least-significant 5 bits of xs2.\nThe resulting word value is sign-extended by copying bit 31 to all of the more-significant bits.\n"
+
+[format_1-0.instructions.ror]
+mask = 4261441663
+match = 1610633267
+description = "Performs a rotate right of xs1 by the amount in least-significant `log2(XLEN)` bits of xs2.\n"
+
+[format_1-0.instructions.rorw]
+mask = 4261441663
+match = 1610633275
+description = "Performs a rotate right on the least-significant word of xs1 by the amount in\nleast-significant 5 bits of xs2. The resultant word is sign-extended by copying bit 31 to all\nof the more-significant bits.\n"
+
+[format_1-0.instructions.xnor]
+mask = 4261441663
+match = 1073758259
+description = "Performs the bit-wise exclusive-NOR operation on xs1 and xs2.\n"
+
+[format_2-0]
+type = "type_2-0"
+
+[format_2-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%"
+
+[format_2-0.instructions.clz]
+mask = 4293947519
+match = 1610616851
+description = "Counts the number of 0's before the first 1,\nstarting at the most-significant bit (i.e., XLEN-1) and progressing to bit 0.\nAccordingly, if the input is 0, the output is XLEN, and if the most-significant\nbit of the input is a 1, the output is 0.\n"
+
+[format_2-0.instructions.clzw]
+mask = 4293947519
+match = 1610616859
+description = "Counts the number of 0's before the first 1 starting at bit 31 and progressing to bit 0.\nAccordingly, if the least-significant word is 0, the output is 32, and if the most-significant\nbit of the word (_i.e._, bit 31) is a 1, the output is 0.\n"
+
+[format_2-0.instructions.cpop]
+mask = 4293947519
+match = 1612714003
+description = "Counts the number of 1's (i.e., set bits) in the source register.\n\n.Software Hint\n[NOTE]\n----\nThis operations is known as population count, popcount, sideways sum,\nbit summation, or Hamming weight.\n\nThe GCC builtin function `__builtin_popcount (unsigned int x)` is\nimplemented by cpop on RV32 and by cpopw on RV64. The GCC builtin\nfunction `__builtin_popcountl (unsigned long x)` for LP64 is\nimplemented by cpop on RV64.\n----\n"
+
+[format_2-0.instructions.cpopw]
+mask = 4293947519
+match = 1612714011
+description = "Counts the number of 1's (i.e., set bits) in the least-significant word of the source register.\n\n.Software Hint\n[NOTE]\n----\nThis operations is known as population count, popcount, sideways sum,\nbit summation, or Hamming weight.\n\nThe GCC builtin function `__builtin_popcount (unsigned int x)` is\nimplemented by cpop on RV32 and by cpopw on RV64. The GCC builtin\nfunction `__builtin_popcountl (unsigned long x)` for LP64 is\nimplemented by cpop on RV64.\n----\n"
+
+[format_2-0.instructions.ctz]
+mask = 4293947519
+match = 1611665427
+description = "Counts the number of 0's before the first 1,\nstarting at the least-significant bit (i.e., 0) and progressing\nto the most-significant bit (i.e., XLEN-1). Accordingly, if the\ninput is 0, the output is XLEN, and if the least-significant bit\nof the input is a 1, the output is 0.\n"
+
+[format_2-0.instructions.ctzw]
+mask = 4293947519
+match = 1611665435
+description = "Counts the number of 0's before the first 1,\nstarting at the least-significant bit (i.e., 0) and progressing\nto the most-significant bit of the least-significant word (i.e., 31). Accordingly, if the\nleast-significant word is 0, the output is 32, and if the least-significant bit\nof the input is a 1, the output is 0.\n"
+
+[format_2-0.instructions."orc.b"]
+mask = 4293947519
+match = 678449171
+description = "Combines the bits within each byte using bitwise logical OR. This sets the bits\nof each byte in the result xd to all zeros if no bit within the respective byte\nof xs1 is set, or to all ones if any bit within the respective byte of xs1 is set.\n"
+
+[format_2-0.instructions.rev8]
+mask = 4293947519
+match = 1803571219
+description = "Reverses the order of the bytes in rs1.\n\n[NOTE]\nThe rev8 mnemonic corresponds to different instruction encodings in RV32 and RV64.\n\n[NOTE]\nThe byte-reverse operation is only available for the full register width. To emulate word-sized\nand halfword-sized byte-reversal, perform a `rev8 xd,xs1` followed by a `srai xd,xd,K`, where K\nis XLEN-32 and XLEN-16, respectively.\n"
+
+[format_2-0.instructions."sext.b"]
+mask = 4293947519
+match = 1614811155
+description = "Sign-extends the least-significant byte in the source to XLEN by copying the\nmost-significant bit in the byte (i.e., bit 7) to all of the more-significant bits.\n"
+
+[format_2-0.instructions."sext.h"]
+mask = 4293947519
+match = 1615859731
+description = "Sign-extends the least-significant halfword in the source to XLEN by copying the\nmost-significant bit in the halfword (i.e., bit 15) to all of the more-significant bits.\n"
+
+[format_2-0.instructions."zext.h"]
+mask = 4293947519
+match = 134234171
+description = "Zero-extends the least-significant halfword of the source to XLEN by inserting\n0's into all of the bits more significant than 15.\n\n[NOTE]\nThe *zext.h* instruction is a pseudo-op for `pack` when `Zbkb` is implemented and XLEN == 32.\n\n[NOTE]\nThe *zext.h* instruction is a pseudo-op for `packw` when `Zbkb` is implemented and XLEN == 64.\n"
+
+[format_3-0]
+type = "type_3-0"
+
+[format_3-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %shamtd%"
+
+[format_3-0.instructions.rori]
+mask = 4227887231
+match = 1610633235
+description = "Performs a rotate right of xs1 by the amount in the least-significant log2(XLEN) bits of shamt.\nFor RV32, the encodings corresponding to shamt[5]=1 are reserved.\n"
+
+[format_4-0]
+type = "type_4-0"
+
+[format_4-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %shamtw%"
+
+[format_4-0.instructions.roriw]
+mask = 4261441663
+match = 1610633243
+description = "Performs a rotate right on the least-significant word of xs1 by the amount in\nthe least-significant log2(XLEN) bits of shamt. The resulting word value is sign-extended by\ncopying bit 31 to all of the more-significant bits.\n"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]

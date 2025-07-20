@@ -1,0 +1,716 @@
+set = "RV32C"
+width = 32
+
+[formats]
+names = [
+    "format-01-0",
+    "format-02-0",
+    "format-23-0",
+    "format-24-0",
+    "format-05-0",
+    "format-06-0",
+    "format-07-0",
+    "format-28-0",
+    "format-09-0",
+    "format-10-0",
+    "format-31-0",
+    "format-12-0",
+    "format-13-0",
+    "format-14-0",
+    "format-15-0",
+    "format-16-0",
+    "format-17-0",
+    "format-18-0",
+    "format-19-0",
+    "format-20-0",
+    "format-21-0",
+]
+parts = [
+    [
+        "rd_rs1_n0_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_rs1_n0_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "c_rs2_n0_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "c_rs2_n0_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rd_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rd_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rd_rs1_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rd_rs1_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rs2_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rs2_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "rs1_p_Register_int_c",
+        3,
+        "Register_int_c",
+    ],
+    [
+        "rs1_p_Register_float_c",
+        3,
+        "Register_float_c",
+    ],
+    [
+        "c_rs1_n0_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "c_rs1_n0_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs1_n0_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_n0_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rd_n0_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_n0_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rd_n2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_n2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "c_rs2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "c_rs2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+    "type-2-0",
+    "type-3-0",
+    "type-4-0",
+    "type-5-0",
+    "type-6-0",
+    "type-7-0",
+    "type-8-0",
+    "type-9-0",
+    "type-10-0",
+    "type-11-0",
+    "type-12-0",
+    "type-13-0",
+    "type-14-0",
+    "type-15-0",
+    "type-16-0",
+    "type-17-0",
+    "type-18-0",
+    "type-19-0",
+    "type-20-0",
+    "type-21-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 12 },
+    { name = "rd_rs1_n0_Register_int", top = 4, bot = 0 },
+    { name = "c_rs2_n0_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-2-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "rd_rs1_n0_Register_int", top = 4, bot = 0 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-3-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 9, bot = 9 },
+    { name = "none", top = 11, bot = 7 },
+    { name = "imm", top = 4, bot = 4 },
+    { name = "imm", top = 6, bot = 6 },
+    { name = "imm", top = 8, bot = 7 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-4-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 4 },
+    { name = "imm", top = 9, bot = 6 },
+    { name = "imm", top = 2, bot = 2 },
+    { name = "imm", top = 3, bot = 3 },
+    { name = "rd_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-5-0 = [
+    { name = "none", top = 31, bot = 10 },
+    { name = "rd_rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 6, bot = 5 },
+    { name = "rs2_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-6-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 11, bot = 10 },
+    { name = "rd_rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-7-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 8, bot = 8 },
+    { name = "imm", top = 4, bot = 3 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "imm", top = 7, bot = 6 },
+    { name = "imm", top = 2, bot = 1 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-8-0 = [
+    { name = "none", top = 31, bot = 0 },
+]
+type-9-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 11, bot = 11 },
+    { name = "imm", top = 4, bot = 4 },
+    { name = "imm", top = 9, bot = 8 },
+    { name = "imm", top = 10, bot = 10 },
+    { name = "imm", top = 6, bot = 6 },
+    { name = "imm", top = 7, bot = 7 },
+    { name = "imm", top = 3, bot = 1 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-10-0 = [
+    { name = "none", top = 31, bot = 12 },
+    { name = "c_rs1_n0_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-11-0 = [
+    { name = "none", top = 31, bot = 12 },
+    { name = "rs1_n0_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+type-12-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "rd_n0_Register_int", top = 4, bot = 0 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-13-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "himm", top = 5, bot = 5, extend_top = 14 },
+    { name = "rd_n2_Register_int", top = 4, bot = 0 },
+    { name = "himm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-14-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "himm", top = 5, bot = 3 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "himm", top = 2, bot = 2 },
+    { name = "himm", top = 6, bot = 6 },
+    { name = "rd_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-15-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "himm", top = 5, bot = 5 },
+    { name = "rd_n0_Register_int", top = 4, bot = 0 },
+    { name = "himm", top = 4, bot = 2 },
+    { name = "himm", top = 7, bot = 6 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-16-0 = [
+    { name = "none", top = 31, bot = 12 },
+    { name = "rd_n0_Register_int", top = 4, bot = 0 },
+    { name = "c_rs2_n0_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-17-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 11, bot = 7 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-18-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "rd_rs1_n0_Register_int", top = 4, bot = 0 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-19-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "imm", top = 5, bot = 5 },
+    { name = "none", top = 11, bot = 10 },
+    { name = "rd_rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "imm", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-20-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "himm", top = 5, bot = 3 },
+    { name = "rs1_p_Register_int_c", top = 2, bot = 0 },
+    { name = "himm", top = 2, bot = 2 },
+    { name = "himm", top = 6, bot = 6 },
+    { name = "rs2_p_Register_int_c", top = 2, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+type-21-0 = [
+    { name = "none", top = 31, bot = 13 },
+    { name = "himm", top = 5, bot = 2 },
+    { name = "himm", top = 7, bot = 6 },
+    { name = "c_rs2_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 1, bot = 0 },
+]
+
+[format-01-0]
+type = "type-1-0"
+
+[format-01-0.repr]
+default = "$name$ %rd_rs1_n0_Register_int%, %c_rs2_n0_Register_int%"
+
+[format-01-0.instructions."c.add"]
+mask = 61443
+match = 36866
+description = "Add the value in xs2 to xd, and store the result in xd.\nC.ADD expands into `add xd, xd, xs2`.\n"
+
+[format-02-0]
+type = "type-2-0"
+
+[format-02-0.repr]
+default = "$name$ %rd_rs1_n0_Register_int%, %imm%"
+
+[format-02-0.instructions."c.addi"]
+mask = 57347
+match = 1
+description = "C.ADDI adds the non-zero sign-extended 6-bit immediate to the value in register xd then writes the result to xd.\nC.ADDI expands into `addi xd, xd, imm`.\nC.ADDI is only valid when xd &ne; x0 and imm &ne; 0.\nThe code points with xd=x0 encode the C.NOP instruction; the remaining code points with imm=0 encode HINTs.\n"
+
+[format-23-0]
+type = "type-3-0"
+
+[format-23-0.repr]
+default = "$name$ sp, %imm%"
+
+[format-23-0.instructions."c.addi16sp"]
+mask = 61315
+match = 24833
+description = "C.ADDI16SP adds the non-zero sign-extended 6-bit immediate to the value in the stack pointer (sp=x2), where the immediate is scaled to represent multiples of 16 in the range (-512,496).\nC.ADDI16SP is used to adjust the stack pointer in procedure prologues and epilogues.\nIt expands into `addi x2, x2, nzimm[9:4]`.\nC.ADDI16SP is only valid when nzimm &ne; 0; the code point with nzimm=0 is reserved.\n"
+
+[format-24-0]
+type = "type-4-0"
+
+[format-24-0.repr]
+default = "$name$ %rd_p_Register_int_c%, sp, %imm%"
+
+[format-24-0.instructions."c.addi4spn"]
+mask = 57347
+match = 0
+unsigned = true
+description = "Adds a zero-extended non-zero immediate, scaled by 4, to the stack pointer, x2, and writes the result to rd'.\nThis instruction is used to generate pointers to stack-allocated variables.\nIt expands to `addi rd', x2, nzuimm[9:2]`.\nC.ADDI4SPN is only valid when nzuimm &ne; 0; the code points with nzuimm=0 are reserved.\n"
+
+[format-05-0]
+type = "type-5-0"
+
+[format-05-0.repr]
+default = "$name$ %rd_rs1_p_Register_int_c%, %rs2_p_Register_int_c%"
+
+[format-05-0.instructions."c.and"]
+mask = 64611
+match = 35937
+description = "And xd with xs2, and store the result in xd\nThe xd and xs2 register indexes should be used as xd+8 and xs2+8 (registers x8-x15).\nC.AND expands into `and xd, xd, xs2`.\n"
+
+[format-05-0.instructions."c.or"]
+mask = 64611
+match = 35905
+description = "Or xd with xs2, and store the result in xd\nThe xd and xs2 register indexes should be used as xd+8 and xs2+8 (registers x8-x15).\nC.OR expands into `or xd, xd, xs2`.\n"
+
+[format-05-0.instructions."c.sub"]
+mask = 64611
+match = 35841
+description = "Subtract the value in xs2 from xd, and store the result in xd.\nThe xd and xs2 register indexes should be used as xd+8 and xs2+8 (registers x8-x15).\nC.SUB expands into `sub xd, xd, xs2`.\n"
+
+[format-05-0.instructions."c.xor"]
+mask = 64611
+match = 35873
+description = "Exclusive or xd with xs2, and store the result in xd\nThe xd and xs2 register indexes should be used as xd+8 and xs2+8 (registers x8-x15).\nC.XOR expands into `xor xd, xd, xs2`.\n"
+
+[format-06-0]
+type = "type-6-0"
+
+[format-06-0.repr]
+default = "$name$ %rd_rs1_p_Register_int_c%, %imm%"
+
+[format-06-0.instructions."c.andi"]
+mask = 60419
+match = 34817
+description = "And an immediate to the value in xd, and store the result in xd.\nThe xd register index should be used as xd+8 (registers x8-x15).\nC.ANDI expands into `andi xd, xd, imm`.\n"
+
+[format-07-0]
+type = "type-7-0"
+
+[format-07-0.repr]
+default = "$name$ %rs1_p_Register_int_c%, %imm%"
+
+[format-07-0.instructions."c.beqz"]
+mask = 57347
+match = 49153
+description = "C.BEQZ performs conditional control transfers. The offset is sign-extended and added to the pc to form the branch target address. It can therefore target a &pm;256 B range. C.BEQZ takes the branch if the value in register xs1' is zero.\nIt expands to `beq` `xs1, x0, offset`.\n"
+
+[format-07-0.instructions."c.bnez"]
+mask = 57347
+match = 57345
+description = "C.BEQZ performs conditional control transfers. The offset is sign-extended and added to the pc to form the branch target address. It can therefore target a &pm;256 B range. C.BEQZ takes the branch if the value in register xs1' is NOT zero.\nIt expands to `beq` `xs1, x0, offset`.\n"
+
+[format-28-0]
+type = "type-8-0"
+
+[format-28-0.repr]
+default = "$name$"
+
+[format-28-0.instructions."c.ebreak"]
+mask = 65535
+match = 36866
+description = "The C.EBREAK instruction is used by debuggers to cause control to be transferred back to\na debugging environment. Unless overridden by an external debug environment,\nC.EBREAK raises a breakpoint exception and performs no other operation.\n\n[NOTE]\nAs described in the `C` Standard Extension for Compressed Instructions, the `c.ebreak`\ninstruction performs the same operation as the EBREAK instruction.\n\nEBREAK causes the receiving privilege mode's epc register to be set to the address of\nthe EBREAK instruction itself, not the address of the following instruction.\nAs EBREAK causes a synchronous exception, it is not considered to retire,\nand should not increment the `minstret` CSR.\n"
+
+[format-09-0]
+type = "type-9-0"
+
+[format-09-0.repr]
+default = "$name$ %imm%"
+
+[format-09-0.instructions."c.j"]
+mask = 57347
+match = 40961
+description = "C.J performs an unconditional control transfer. The offset is sign-extended and added to the pc to form the jump target address. C.J can therefore target a &pm;2 KiB range.\nIt expands to `jal` `x0, offset`.\n"
+
+[format-09-0.instructions."c.jal"]
+mask = 57347
+match = 8193
+description = "C.JAL is an RV32C-only instruction that performs the same operation as C.J, but additionally writes the address of the instruction following the jump (pc+2) to the link register, x1.\nIt expands to `jal` `x1, offset`.\n"
+
+[format-10-0]
+type = "type-10-0"
+
+[format-10-0.repr]
+default = "$name$ %c_rs1_n0_Register_int%"
+
+[format-10-0.instructions."c.jalr"]
+mask = 61567
+match = 36866
+description = "C.JALR (jump and link register) performs the same operation as C.JR, but additionally writes the address of the instruction following the jump (pc+2) to the link register, x1.\nC.JALR expands to jalr x1, 0(xs1).\n"
+
+[format-31-0]
+type = "type-11-0"
+
+[format-31-0.repr]
+default = "$name$ %rs1_n0_Register_int%"
+
+[format-31-0.instructions."c.jr"]
+mask = 61567
+match = 32770
+description = "C.JR (jump register) performs an unconditional control transfer to the address in register xs1.\nC.JR expands to jalr x0, 0(xs1).\n"
+
+[format-12-0]
+type = "type-12-0"
+
+[format-12-0.repr]
+default = "$name$ %rd_n0_Register_int%, %imm%"
+
+[format-12-0.instructions."c.li"]
+mask = 57347
+match = 16385
+description = "C.LI loads the sign-extended 6-bit immediate, imm, into register xd.\nC.LI expands into `addi xd, x0, imm`.\nC.LI is only valid when xd &ne; x0; the code points with xd=x0 encode HINTs.\n"
+
+[format-13-0]
+type = "type-13-0"
+
+[format-13-0.repr]
+default = "$name$ %rd_n2_Register_int%, %himm%"
+
+[format-13-0.instructions."c.lui"]
+mask = 57347
+match = 24577
+unsigned = true
+description = "C.LUI loads the non-zero 6-bit immediate field into bits 17-12 of the destination register, clears the bottom 12 bits, and sign-extends bit 17 into all higher bits of the destination.\nC.LUI expands into `lui xd, imm`.\nC.LUI is only valid when xd&ne;x0 and xd&ne;x2, and when the immediate is not equal to zero.\nThe code points with imm=0 are reserved; the remaining code points with xd=x0 are HINTs; and the remaining code points with xd=x2 correspond to the C.ADDI16SP instruction\n"
+
+[format-14-0]
+type = "type-14-0"
+
+[format-14-0.repr]
+default = "$name$ %rd_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-14-0.instructions."c.lw"]
+mask = 57347
+match = 16384
+unsigned = true
+description = "Loads a 32-bit value from memory into register xd.\nIt computes an effective address by adding the zero-extended offset, scaled by 4,\nto the base address in register xs1.\nIt expands to `lw` `xd, offset(xs1)`.\n"
+
+[format-15-0]
+type = "type-15-0"
+
+[format-15-0.repr]
+default = "$name$ %rd_n0_Register_int%, %himm%(sp)"
+
+[format-15-0.instructions."c.lwsp"]
+mask = 57347
+match = 16386
+unsigned = true
+description = "Loads a 32-bit value from memory into register xd.\nIt computes an effective address by adding the zero-extended offset, scaled by 4,\nto the stack pointer, x2.\nIt expands to `lw` `xd, offset(x2)`.\nC.LWSP is only valid when xd &ne; x0. The code points with xd=x0 are reserved.\n"
+
+[format-16-0]
+type = "type-16-0"
+
+[format-16-0.repr]
+default = "$name$ %rd_n0_Register_int%, %c_rs2_n0_Register_int%"
+
+[format-16-0.instructions."c.mv"]
+mask = 61443
+match = 32770
+description = "C.MV (move register) performs copy of the data in register xs2 to register xd\nC.MV expands to addi xd, x0, xs2.\n"
+
+[format-17-0]
+type = "type-17-0"
+
+[format-17-0.repr]
+default = "$name$"
+
+[format-17-0.instructions."c.nop"]
+mask = 61315
+match = 1
+description = "C.NOP expands into `addi x0, x0, 0`.\n"
+
+[format-18-0]
+type = "type-18-0"
+
+[format-18-0.repr]
+default = "$name$ %rd_rs1_n0_Register_int%, %imm%"
+"c.slli64" = "$name$ %rd_rs1_n0_Register_int%"
+
+[format-18-0.instructions."c.slli"]
+mask = 61443
+match = 2
+unsigned = true
+description = "Shift the value in rd left by shamt, and store the result back in rd.\nC.SLLI expands into `slli rd, rd, shamt`.\n"
+
+[format-18-0.instructions."c.slli64"]
+mask = 61567
+match = 2
+unsigned = true
+
+[format-19-0]
+type = "type-19-0"
+
+[format-19-0.repr]
+default = "$name$ %rd_rs1_p_Register_int_c%, %imm%"
+"c.srli64" = "$name$ %rd_rs1_p_Register_int_c%"
+
+[format-19-0.instructions."c.srai"]
+mask = 64515
+match = 33793
+unsigned = true
+description = "Arithmetic shift (the original sign bit is copied into the vacated upper bits) the value in rd right by shamt, and store the result in rd.\nThe rd register index should be used as rd+8 (registers x8-x15).\nC.SRAI expands into `srai rd, rd, shamt`.\n"
+
+[format-19-0.instructions."c.srli"]
+mask = 64515
+match = 32769
+unsigned = true
+description = "Shift the value in rd right by shamt, and store the result back in rd.\nThe rd register index should be used as rd+8 (registers x8-x15).\nC.SRLI expands into `srli rd, rd, shamt`.\n"
+
+[format-19-0.instructions."c.srli64"]
+mask = 64639
+match = 32769
+unsigned = true
+
+[format-20-0]
+type = "type-20-0"
+
+[format-20-0.repr]
+default = "$name$ %rs2_p_Register_int_c%, %himm%(%rs1_p_Register_int_c%)"
+
+[format-20-0.instructions."c.sw"]
+mask = 57347
+match = 49152
+unsigned = true
+description = "Stores a 32-bit value in register xs2 to memory.\nIt computes an effective address by adding the zero-extended offset, scaled by 4,\nto the base address in register xs1.\nIt expands to `sw` `rs2, offset(xs1)`.\n"
+
+[format-21-0]
+type = "type-21-0"
+
+[format-21-0.repr]
+default = "$name$ %c_rs2_Register_int%, %himm%(sp)"
+
+[format-21-0.instructions."c.swsp"]
+mask = 57347
+match = 49154
+unsigned = true
+description = "Stores a 32-bit value in register xs2 to memory.\nIt computes an effective address by adding the zero-extended offset, scaled by 4,\nto the stack pointer, x2.\nIt expands to `sw` `xs2, offset(x2)`.\n"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_int_c",
+    "Register_float",
+    "Register_float_c",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_int_c = [
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]
+Register_float_c = [
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+]

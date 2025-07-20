@@ -1,0 +1,172 @@
+set = "RVZacas"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+]
+parts = [
+    [
+        "rd_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "aqrl",
+        2,
+        "Mapping_ordering",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 27 },
+    { name = "aqrl", top = 1, bot = 0 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$%aqrl% %rd_Register_int%, %rs2_Register_int%, (%rs1_Register_int%)"
+
+[format-1-0.instructions."amocas.d"]
+mask = 4160778367
+match = 671100975
+description = "For RV32, AMOCAS.D atomically loads 64-bits of a data value from address in\nxs1, compares the loaded value to a 64-bit value held in a register pair\nconsisting of xd and xd+1, and if the comparison is bitwise equal, then\nstores the 64-bit value held in the register pair xs2 and xs2+1 to the\noriginal address in xs1. The value loaded from memory is placed into the\nregister pair xd and xd+1. The instruction requires the first register in\nthe pair to be even numbered; encodings with odd-numbered registers\nspecified in xs2 and xd are reserved. When the first register of a source\nregister pair is x0, then both halves of the pair read as zero. When the\nfirst register of a destination register pair is x0, then the entire\nregister result is discarded and neither destination register is written.\n\nFor RV64, AMOCAS.D atomically loads 64-bits of a data value from address in\nxs1, compares the loaded value to a 64-bit value held in xd, and if the\ncomparison is bitwise equal, then stores the 64-bit value held in xs2 to the\noriginal address in xs1. The value loaded from memory is placed into\nregister xd.\n\nJust as for AMOs in the A extension, AMOCAS.D requires that the address held\nin xs1 be naturally aligned to the size of the operand (i.e., eight-byte\naligned for doublewords). And the same exception options apply if the\naddress is not naturally aligned.\n\nJust as for AMOs in the A extension, the AMOCAS.D optionally provides release\nconsistency semantics, using the aq and rl bits, to help implement\nmultiprocessor synchronization. The memory operation performed by an\nAMOCAS.D, when successful, has acquire semantics if aq bit is 1 and has\nrelease semantics if rl bit is 1. The memory operation performed by an\nAMOCAS.W/D/Q, when not successful, has acquire semantics if aq bit is 1 but\ndoes not have release semantics, regardless of rl.\n\nA FENCE instruction may be used to order the memory read access and, if\nproduced, the memory write access by an AMOCAS.D instruction.\n\n[Note] An unsuccessful AMOCAS.D may either not perform a memory write or may\nwrite back the old value loaded from memory. The memory write, if produced,\ndoes not have release semantics, regardless of rl.\n\nAn AMOCAS.D instruction always requires write permissions.\n"
+
+[format-1-0.instructions."amocas.w"]
+mask = 4160778367
+match = 671096879
+description = "For RV32, AMOCAS.W atomically loads a 32-bit data value from address in xs1,\ncompares the loaded value to the 32-bit value held in xd, and if the\ncomparison is bitwise equal, then stores the 32-bit value held in xs2 to the\noriginal address in xs1. The value loaded from memory is placed into\nregister xd.\n\nFor RV64, AMOCAS.W atomically loads a 32-bit data value from address in xs1,\ncompares the loaded value to the lower 32 bits of the value held in xd, and\nif the comparison is bitwise equal, then stores the lower 32 bits of the\nvalue held in xs2 to the original address in xs1. The 32-bit value loaded\nfrom memory is sign-extended and is placed into register xd.\n\nJust as for AMOs in the A extension, AMOCAS.W requires that the address held\nin xs1 be naturally aligned to the size of the operand (i.e., four-byte\naligned for words). And the same exception options apply if the address is\nnot naturally aligned.\n\nJust as for AMOs in the A extension, the AMOCAS.W optionally provides release\nconsistency semantics, using the aq and rl bits, to help implement\nmultiprocessor synchronization. The memory operation performed by an\nAMOCAS.W, when successful, has acquire semantics if aq bit is 1 and has\nrelease semantics if rl bit is 1. The memory operation performed by an\nAMOCAS.W/D/Q, when not successful, has acquire semantics if aq bit is 1 but\ndoes not have release semantics, regardless of rl.\n\nA FENCE instruction may be used to order the memory read access and, if\nproduced, the memory write access by an AMOCAS.W instruction.\n\n[Note] An unsuccessful AMOCAS.W may either not perform a memory write or may\nwrite back the old value loaded from memory. The memory write, if produced,\ndoes not have release semantics, regardless of rl.\n\nAn AMOCAS.W instruction always requires write permissions.\n"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+    "Mapping_ordering",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]
+Mapping_ordering = [
+    "",
+    ".rl",
+    ".aq",
+    ".aqrl",
+]

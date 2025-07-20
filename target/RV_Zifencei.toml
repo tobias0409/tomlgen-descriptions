@@ -1,0 +1,143 @@
+set = "RVZifencei"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+]
+parts = [
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rd_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+]
+type-1-0 = [
+    { name = "imm", top = 11, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$"
+
+[format-1-0.instructions."fence.i"]
+mask = 28799
+match = 4111
+description = "The FENCE.I instruction is used to synchronize the instruction and data\nstreams. RISC-V does not guarantee that stores to instruction memory\nwill be made visible to instruction fetches on a RISC-V hart until that\nhart executes a FENCE.I instruction. A FENCE.I instruction ensures that\na subsequent instruction fetch on a RISC-V hart will see any previous\ndata stores already visible to the same RISC-V hart. FENCE.I does _not_\nensure that other RISC-V harts' instruction fetches will observe the\nlocal hart's stores in a multiprocessor system. To make a store to\ninstruction memory visible to all RISC-V harts, the writing hart also\nhas to execute a data FENCE before requesting that all remote RISC-V\nharts execute a FENCE.I.\n\nThe unused fields in the FENCE.I instruction, _imm[11:0]_, _xs1_, and\n_xd_, are reserved for finer-grain fences in future extensions. For\nforward compatibility, base implementations shall ignore these fields,\nand standard software shall zero these fields.\n(((FENCE.I, finer-grained)))\n(((FENCE.I, forward compatibility)))\n\n[NOTE]\n====\nBecause FENCE.I only orders stores with a hart's own instruction\nfetches, application code should only rely upon FENCE.I if the\napplication thread will not be migrated to a different hart. The EEI can\nprovide mechanisms for efficient multiprocessor instruction-stream\nsynchronization.\n====\n"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]

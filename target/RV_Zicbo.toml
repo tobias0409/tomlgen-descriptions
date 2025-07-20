@@ -1,0 +1,172 @@
+set = "RVZicbo"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+    "format-2-0",
+]
+parts = [
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+    "type-2-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 20 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 0 },
+]
+type-2-0 = [
+    { name = "himm", top = 11, bot = 5 },
+    { name = "none", top = 24, bot = 20 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$ %rs1_Register_int%"
+
+[format-1-0.instructions."cbo.clean"]
+mask = 4293951487
+match = 1056783
+description = "Cleans an entire cache block globally throughout the system.\n\nExactly what happens is coherence protocol-dependent, but in general it is expected that after this\noperation():\n\n  * The cache block will be in the clean (not dirty) state in any coherent cache holding a valid copy of the line.\n  * The data will be cleaned to a point such that an incoherent load can observe the cleaned data.\n\n`cbo.clean` is ordered by `FENCE` instructions but not `FENCE.I` or `SFENCE.VMA`.\n\n<%- if CACHE_BLOCK_SIZE.bit_length > [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBoth PMP and PMA access control must be the same for all bytes in the block; otherwise, `cbo.clean` has UNSPECIFIED behavior.\n<%- end -%>\n\nClean operations are treated as stores for page and access permissions. If permission checks fail,\none of the following exceptions will occur:\n\n  <%- if ext?(:H) -%>\n  * `Store/AMO Guest-Page Fault` if virtual memory translation fails during G-stage translation.\n  <%- end -%>\n  * `Store/AMO Page Fault` if virtual memory translation fails <% if ext?(:H) %>when V=0 or during VS-stage translation<% end %>\n  * `Store/AMO Access Fault` if a PMP or PMA access check fails\n\n<%- if CACHE_BLOCK_SIZE.bit_length <= [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBecause cache blocks are naturally aligned and always fit in a single PMP or PMA regions, the PMP\nand PMA access checks only need to check a single address in the line.\n<%- end -%>\n\nCBO operations never raise a misaligned address fault.\n"
+
+[format-1-0.instructions."cbo.flush"]
+mask = 4293951487
+match = 2105359
+description = "Flushes an entire cache block by cleaning it and then invalidating it in all caches.\n\n`cbo.flush` is ordered by `FENCE` instructions but not `FENCE.I` or `SFENCE.VMA`.\n\n<%- if CACHE_BLOCK_SIZE.bit_length > [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBoth PMP and PMA access control must be the same for all bytes in the block; otherwise, `cbo.flush` has UNSPECIFIED behavior.\n<%- end -%>\n\nFlush operations are treated as stores for page and access permissions. If permission checks fail,\none of the following exceptions will occur:\n\n  <%- if ext?(:H) -%>\n  * `Store/AMO Guest-Page Fault` if virtual memory translation fails during G-stage translation.\n  <%- end -%>\n  * `Store/AMO Page Fault` if virtual memory translation fails <% if ext?(:H) %>when V=0 or during VS-stage translation<% end %>\n  * `Store/AMO Access Fault` if a PMP or PMA access check fails.\n\n<%- if CACHE_BLOCK_SIZE.bit_length <= [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBecause cache blocks are naturally aligned and always fit in a single PMP or PMA regions, the PMP\nand PMA access checks only need to check a single address in the line.\n<%- end -%>\n\nCBO operations never raise a misaligned address fault.\n"
+
+[format-1-0.instructions."cbo.inval"]
+mask = 4293951487
+match = 8207
+description = "Either invalidates or flushes (clean + invalidate) a cache block, depending on the current mode and value of\n`menvcfg.CBIE`, `senvcfg.CBIE`, and/or `henvcfg.CBIE`.\n\nThe instruction is an invalidate (without a clean) when:\n\n  * In M-mode\n  * In (H)S-mode and `menvcfg.CBIE` == 11\n  * In U-mode and `menvcfg.CBIE` == 11 and `senvcfg.CBIE` == 11\n  * In VS-mode and `menvcfg.CBIE` == 11 and `henvcfg.CBIE` == 11\n  * In VU-mode and `menvcfg.CBIE` == 11 and `henvcfg.CBIE` == 11 and `senvcfg.CBIE` == 11\n\nOtherwise, if the instruction does not trap (see Access section), the operation is a flush.\nThe table below summarizes the options.\n\n[%autowidth,cols=\"1,1,1,1,1,1,1,1\",separator=\"!\"]\n!===\n.2+h![.rotate]#`menvcfg.CBIE`# .2+h! [.rotate]#`senvcfg.CBIE`# .2+h! [.rotate]#`henvcfg.CBIE`#\n5+^.>h! `cbe.inval` Operation\n.^h! M-mode .^h! S-mode .^h! U-mode .^h! VS-mode .^h! VU-mode\n\n! 00 ! - ! - ! Invalidate ! `Illegal Instruction` ! `Illegal Instruction` ! `Virtual Instruction` ! `Virtual Instruction`\n! 01 ! 00 ! 00 ! Invalidate ! Flush  ! `Illegal Instruction` ! `Virtual Instruction` ! `Virtual Instruction`\n! 01 ! 00 ! 01 ! Invalidate ! Flush  ! `Illegal Instruction` ! Flush ! `Virtual Instruction`\n! 01 ! 00 ! 11 ! Invalidate ! Flush  ! `Illegal Instruction` ! Flush ! `Virtual Instruction`\n! 01 ! 01 ! 00 ! Invalidate ! Flush  ! Flush ! `Virtual Instruction` ! `Virtual Instruction`\n! 01 ! 01 ! 01 ! Invalidate ! Flush  ! Flush ! Flush ! Flush\n! 01 ! 01 ! 11 ! Invalidate ! Flush  ! Flush ! Flush ! Flush\n! 01 ! 11 ! 00 ! Invalidate ! Flush  ! Flush ! `Virtual Instruction` ! `Virtual Instruction`\n! 01 ! 11 ! 01 ! Invalidate ! Flush  ! Flush ! Flush ! Flush\n! 01 ! 11 ! 11 ! Invalidate ! Flush  ! Flush ! Flush ! Flush\n! 11 ! 00 ! 00  ! Invalidate ! Invalidate  ! `Illegal Instruction` ! `Virtual Instruction` ! `Virtual Instruction`\n! 11 ! 00 ! 01  ! Invalidate ! Invalidate  ! `Illegal Instruction` ! Flush ! `Virtual Instruction`\n! 11 ! 00 ! 11  ! Invalidate ! Invalidate  ! `Illegal Instruction` ! Invalidate ! `Virtual Instruction`\n! 11 ! 01 ! 00 ! Invalidate ! Invalidate  ! Flush ! `Virtual Instruction` ! `Virtual Instruction`\n! 11 ! 01 ! 01 ! Invalidate ! Invalidate  ! Flush ! Flush ! Flush\n! 11 ! 01 ! 11 ! Invalidate ! Invalidate  ! Flush ! Invalidate ! Flush\n! 11 ! 11 ! 00 ! Invalidate ! Invalidate  ! Invalidate ! `Virtual Instruction` ! `Virtual Instruction`\n! 11 ! 11 ! 01 ! Invalidate ! Invalidate  ! Invalidate ! Flush ! Flush\n! 11 ! 11 ! 11 ! Invalidate ! Invalidate  ! Invalidate ! Invalidate ! Invalidate\n!===\n\n`cbo.inval` is ordered by `FENCE` instructions but not `FENCE.I` or `SFENCE.VMA`.\n\n<%- if CACHE_BLOCK_SIZE.bit_length > [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBoth PMP and PMA access control must be the same for all bytes in the block; otherwise, `cbo.zero` has UNSPECIFIED behavior.\n<%- end -%>\n\nInvalidate operations are treated as stores for page and access permissions. If permission checks fail,\none of the following exceptions will occur:\n\n  <%- if ext?(:H) -%>\n  * `Store/AMO Guest-Page Fault` if virtual memory translation fails during G-stage translation.\n  <%- end -%>\n  * `Store/AMO Page Fault` if virtual memory translation fails <% if ext?(:H) %>when V=0 or during VS-stage translation<% end %>\n  * `Store/AMO Access Fault` if a PMP or PMA access check fails.\n\n<%- if CACHE_BLOCK_SIZE.bit_length <= [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBecause cache blocks are naturally aligned and always fit in a single PMP or PMA regions, the PMP\nand PMA access checks only need to check a single address in the line.\n<%- end -%>\n\nCBO operations never raise a misaligned address fault.\n"
+
+[format-1-0.instructions."cbo.zero"]
+mask = 4293951487
+match = 4202511
+description = "Zeros an entire cache block\n\nThe block zeroing does not need to be atomic.\n\n`cbo.zero` is ordered by `FENCE` instructions but not `FENCE.I` or `SFENCE.VMA`.\n\n<%- if CACHE_BLOCK_SIZE.bit_length > [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBoth PMP and PMA access control must be the same for all bytes in the block; otherwise, `cbo.zero` has UNSPECIFIED behavior.\n<%- end -%>\n\nClean operations are treated as stores for page and access permissions. If permission checks fail,\none of the following exceptions will occur:\n\n  <%- if ext?(:H) -%>\n  * `Store/AMO Guest-Page Fault` if virtual memory translation fails during G-stage translation.\n  <%- end -%>\n  * `Store/AMO Page Fault` if virtual memory translation fails <% if ext?(:H) %>when V=0 or during VS-stage translation<% end %>\n  * `Store/AMO Access Fault` if a PMP or PMA access check fails.\n\n<%- if CACHE_BLOCK_SIZE.bit_length <= [PMP_GRANULARITY, PMA_GRANULARITY].min -%>\nBecause cache blocks are naturally aligned and always fit in a single PMP or PMA regions, the PMP\nand PMA access checks only need to check a single address in the line.\n<%- end -%>\n\nCBO operations never raise a misaligned address fault.\n"
+
+[format-2-0]
+type = "type-2-0"
+
+[format-2-0.repr]
+default = "$name$ %himm%(%rs1_Register_int%)"
+
+[format-2-0.instructions."prefetch.i"]
+mask = 32538623
+match = 24595
+
+[format-2-0.instructions."prefetch.r"]
+mask = 32538623
+match = 1073171
+
+[format-2-0.instructions."prefetch.w"]
+mask = 32538623
+match = 3170323
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]

@@ -1,0 +1,214 @@
+set = "RV64M"
+width = 32
+
+[formats]
+names = [
+    "format-1-0",
+]
+parts = [
+    [
+        "rd_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rd_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs1_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs1_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "rs2_Register_int",
+        5,
+        "Register_int",
+    ],
+    [
+        "rs2_Register_float",
+        5,
+        "Register_float",
+    ],
+    [
+        "none",
+        32,
+        "u32",
+    ],
+    [
+        "imm",
+        32,
+        "VInt",
+    ],
+    [
+        "himm",
+        32,
+        "VInt",
+        "hex",
+    ],
+]
+
+[types]
+names = [
+    "type-1-0",
+]
+type-1-0 = [
+    { name = "none", top = 31, bot = 25 },
+    { name = "rs2_Register_int", top = 4, bot = 0 },
+    { name = "rs1_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 14, bot = 12 },
+    { name = "rd_Register_int", top = 4, bot = 0 },
+    { name = "none", top = 6, bot = 0 },
+]
+
+[format-1-0]
+type = "type-1-0"
+
+[format-1-0.repr]
+default = "$name$ %rd_Register_int%, %rs1_Register_int%, %rs2_Register_int%"
+
+[format-1-0.instructions.div]
+mask = 4261441663
+match = 33570867
+description = "Divide xs1 by xs2, and store the result in xd. The remainder is discarded.\n\nDivision by zero will put -1 into xd.\n\nDivision resulting in signed overflow (when most negative number is divided by -1)\nwill put the most negative number into xd;\n"
+
+[format-1-0.instructions.divu]
+mask = 4261441663
+match = 33574963
+description = "Divide unsigned values in xs1 by xs2, and store the result in xd.\n\nThe remainder is discarded.\n\nIf the value in xs2 is zero, xd gets the largest unsigned value.\n"
+
+[format-1-0.instructions.divuw]
+mask = 4261441663
+match = 33574971
+description = "Divide the unsigned 32-bit values in xs1 and xs2, and store the sign-extended result in xd.\n\nThe remainder is discarded.\n\nIf the value in xs2 is zero, xd is written with all 1s.\n"
+
+[format-1-0.instructions.divw]
+mask = 4261441663
+match = 33570875
+description = "Divide the lower 32-bits of register xs1 by the lower 32-bits of register xs2,\nand store the sign-extended result in xd.\n\nThe remainder is discarded.\n\nDivision by zero will put -1 into xd.\n\nDivision resulting in signed overflow (when most negative number is divided by -1)\nwill put the most negative number into xd;\n"
+
+[format-1-0.instructions.mul]
+mask = 4261441663
+match = 33554483
+description = "MUL performs an XLEN-bitxXLEN-bit multiplication of `xs1` by `xs2` and places the lower\nXLEN bits in the destination register.\nAny overflow is thrown away.\n\n[NOTE]\nIf both the high and low bits of the same product are required, then the recommended code\nsequence is:\nMULH[[S]U] xdh, xs1, xs2; MUL xdl, xs1, xs2\n(source register specifiers must be in same order and xdh cannot be the same as xs1 or xs2).\nMicroarchitectures can then fuse these into a single multiply operation instead of\nperforming two separate multiplies.\n"
+
+[format-1-0.instructions.mulh]
+mask = 4261441663
+match = 33558579
+description = "Multiply the signed values in xs1 to xs2, and store the upper half of the result in xd.\nThe lower half is thrown away.\n\nIf both the upper and lower halves are needed, it suggested to use the sequence:\n\n---\n  mulh xdh, xs1, xs2\n  mul  xdl, xs1, xs2\n---\n\nMicroarchitectures may look for that sequence and fuse the operations.\n"
+
+[format-1-0.instructions.mulhsu]
+mask = 4261441663
+match = 33562675
+description = "Multiply the signed value in xs1 by the unsigned value in xs2, and store the upper half of the result in xd.\nThe lower half is thrown away.\n\nIf both the upper and lower halves are needed, it suggested to use the sequence:\n\n---\n  mulhsu xdh, xs1, xs2\n  mul    xdl, xs1, xs2\n---\n\nMicroarchitectures may look for that sequence and fuse the operations.\n"
+
+[format-1-0.instructions.mulhu]
+mask = 4261441663
+match = 33566771
+description = "Multiply the unsigned values in xs1 to xs2, and store the upper half of the result in xd.\nThe lower half is thrown away.\n\nIf both the upper and lower halves are needed, it suggested to use the sequence:\n\n---\n  mulhu xdh, xs1, xs2\n  mul   xdl, xs1, xs2\n---\n\nMicroarchitectures may look for that sequence and fuse the operations.\n"
+
+[format-1-0.instructions.mulw]
+mask = 4261441663
+match = 33554491
+description = "Multiplies the lower 32 bits of the source registers, placing the sign-extension of the\nlower 32 bits of the result into the destination register.\n\nAny overflow is thrown away.\n\n[NOTE]\nIn RV64, MUL can be used to obtain the upper 32 bits of the 64-bit product,\nbut signed arguments must be proper 32-bit signed values, whereas unsigned arguments\nmust have their upper 32 bits clear. If the arguments are not known to be sign- or zero-extended,\nan alternative is to shift both arguments left by 32 bits, then use MULH[[S]U].\n"
+
+[format-1-0.instructions.rem]
+mask = 4261441663
+match = 33579059
+description = "Calculate the remainder of signed division of xs1 by xs2, and store the result in xd.\n\nIf the value in register xs2 is zero, write the value in xs1 into xd;\n\nIf the result of the division overflows, write zero into xd;\n"
+
+[format-1-0.instructions.remu]
+mask = 4261441663
+match = 33583155
+description = "Calculate the remainder of unsigned division of xs1 by xs2, and store the result in xd.\n"
+
+[format-1-0.instructions.remuw]
+mask = 4261441663
+match = 33583163
+description = "Calculate the remainder of unsigned division of the 32-bit values in xs1 by xs2,\nand store the sign-extended result in xd.\n\nIf the value in xs2 is zero, xd gets the sign-extended value in xs1.\n"
+
+[format-1-0.instructions.remw]
+mask = 4261441663
+match = 33579067
+description = "Calculate the remainder of signed division of the 32-bit values xs1 by xs2,\nand store the sign-extended result in xd.\n\nIf the value in register xs2 is zero, write the sign-extended 32-bit value in xs1 into xd;\n\nIf the result of the division overflows, write zero into xd;\n"
+
+[mappings]
+names = [
+    "Register_int",
+    "Register_float",
+]
+number = 32
+Register_int = [
+    "zero",
+    "ra",
+    "sp",
+    "gp",
+    "tp",
+    "t0",
+    "t1",
+    "t2",
+    "s0",
+    "s1",
+    "a0",
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "t3",
+    "t4",
+    "t5",
+    "t6",
+]
+Register_float = [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "fs0",
+    "fs1",
+    "fa0",
+    "fa1",
+    "fa2",
+    "fa3",
+    "fa4",
+    "fa5",
+    "fa6",
+    "fa7",
+    "fs2",
+    "fs3",
+    "fs4",
+    "fs5",
+    "fs6",
+    "fs7",
+    "fs8",
+    "fs9",
+    "fs10",
+    "fs11",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+]
